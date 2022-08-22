@@ -39,7 +39,11 @@ const UserSchema = new Schema({
   },
   image: String,
   token: String,
-  tokenExp: Number
+  tokenExp: Number,
+  albums: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Album',
+  }]
 });
 
 UserSchema.set('toJSON', {

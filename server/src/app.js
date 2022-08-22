@@ -8,6 +8,7 @@ import fileUpload from 'express-fileupload'
 
 import User from './models/user';
 import Item from './models/item';
+import Album from './models/album';
 import Category from './models/category';
 
 import config from 'config';

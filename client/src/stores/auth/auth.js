@@ -16,10 +16,9 @@ export const useAuthStore = defineStore({
             console.log(email, password);
             try {
                 // Sign in here
-                axios.post("http://localhost:9000/authenticate", { email: email, password: password }).then(res => {
-                    this.token = res.data["token"]
-                    this.user = res.data["user"]
-                })
+                const res = await axios.post("http://localhost:9000/authenticate", { email: email, password: password })
+                this.user = res.data["user"]
+                this.token = res.data["token"]
 
                 return Promise.resolve("Success")
             } catch (error) {
