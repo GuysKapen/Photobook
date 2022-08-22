@@ -1,22 +1,26 @@
-export const auth = {
-    namespace: true,
-    state: { user: null },
-    mutations: {
-        setUser(state, payload) {
-            state.user = payload
-        }
-    },
+import { defineStore } from "pinia";
+import axios from 'axios'
 
+export const useAuthStore = defineStore({
+    id: "auth",
+    state: () => ({
+        user: null,
+        token: null,
+    }),
     actions: {
-        async logout({ commit }) {
-            commit("setUser", null)
+        async logout() {
+            this.user = null
         },
 
-        async logIn({ commit }, { username, password }) {
+        async login({ email, password }) {
+            console.log(email, password);
             try {
                 // Sign in here
+                axios.post("http://localhost:9000/authenticate", { email: email, password: password }).then(res => {
+                    this.token = res.data["token"]
+                    this.user = res.data["user"]
+                })
 
-                commit("setUser", {})
                 return Promise.resolve("Success")
             } catch (error) {
                 console.log(error);
@@ -33,7 +37,7 @@ export const auth = {
             }
         },
 
-        async signUp(_, { username, password, email }) {
+        async signup(_, { username, password, email }) {
             try {
 
                 return Promise.resolve()
@@ -43,8 +47,4 @@ export const auth = {
             }
         }
     },
-
-    getters: {
-        user: (state) => state.user
-    }
-}
+});

@@ -33,10 +33,13 @@ exports.authenticate = function (req, res) {
               expiresIn: tokenExpireInSeconds
             });
 
+            const { _id, email, name, firstname, lastname } = user;
+
             res.json({
               success: true,
               message: 'Token created.',
-              token: token
+              token: token,
+              user: { _id, email }
             });
           } else {
             response.sendUnauthorized(res, 'Authentication failed.');

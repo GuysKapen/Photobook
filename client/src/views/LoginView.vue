@@ -2,8 +2,8 @@
   <div>
     <form class="flex flex-col items-center" @submit.prevent="login">
       <div class="flex flex-col user">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="userName"
-          >User Name</label
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email"
+          >Email</label
         >
         <input
           class="
@@ -18,9 +18,9 @@
             leading-tight
             focus:outline-none focus:shadow-outline
           "
-          type="text"
-          v-model="username"
-          id="userName"
+          type="email"
+          v-model="email"
+          id="email"
         />
       </div>
       <div class="flex flex-col mt-10">
@@ -52,24 +52,30 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "pinia";
+import { useAuthStore } from "@/stores/auth/auth";
 export default {
   data: () => ({
-    username: "",
+    email: "",
     password: "",
     email: "",
     error: "",
   }),
+  computed: {
+    // gives access to this.count inside the component
+    // same as reading from store.count
+    ...mapState(useAuthStore, ["user"]),
+    // same as above but registers it as this.myOwnName
+  },
   methods: {
-    ...mapActions({
-      loginVue: "auth/login",
-    }),
+    ...mapActions(useAuthStore, { loginVue: "login" }),
     async login() {
       try {
         await this.loginVue({
-          username: this.username,
+          email: this.email,
           password: this.password,
         });
+        this.$router.push("/albums");
       } catch (error) {
         this.error = error;
       }
