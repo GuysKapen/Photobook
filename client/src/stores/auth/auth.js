@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export const useAuthStore = defineStore({
     id: "auth",
+    persist: true,
     state: () => ({
         user: null,
         token: null,
