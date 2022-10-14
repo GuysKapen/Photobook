@@ -9,6 +9,7 @@
           class="
             shadow
             appearance-none
+            bg-white
             border
             rounded
             w-full
@@ -32,6 +33,7 @@
             shadow
             appearance-none
             border
+            bg-white
             rounded
             w-full
             py-2

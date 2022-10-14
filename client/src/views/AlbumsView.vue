@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="px-8">
     <h3 class="text-3xl">Create Or Choose An Album</h3>
     <div class="flex flex-col m-auto w-64">
       <input
@@ -25,25 +25,54 @@
     <div class="text-red-500">{{ error }}</div>
     <hr />
     <h5 class="mt-4 text-2xl">List Of Albums</h5>
-    <div class="flex flex-wrap w-full m-auto justify-center">
-      <div
+    <div class="grid grid-cols-3 gap-12 w-9/12 mx-auto mt-8">
+      <router-link
         v-for="(album, idx) in albums"
         :key="idx"
-        class="
-          cursor-pointer
-          mt-4
-          ml-4
-          w-3/12
-          h-24
-          shadow-xl
-          flex
-          items-center
-          justify-center
-        "
-        @click="openAlbumDetail(album)"
+        :to="{ name: 'album-detail', params: { id: album._id } }"
       >
-        <div class="text-2xl">{{ album.name }}</div>
-      </div>
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <img
+              src="https://i.pinimg.com/564x/d3/1a/6f/d31a6f22b8d115bc766cfeb284682060.jpg"
+              alt="book"
+              class="rounded-md w-32 h-48"
+            />
+          </div>
+          <div class="ml-4">
+            <div>
+              <span class="material-symbols-outlined text-sm text-yellow-500">
+                star
+              </span>
+              <span class="material-symbols-outlined text-sm text-yellow-500">
+                star
+              </span>
+              <span class="material-symbols-outlined text-sm text-yellow-500">
+                star
+              </span>
+              <span class="material-symbols-outlined text-sm text-yellow-500">
+                star
+              </span>
+              <span class="material-symbols-outlined text-sm text-yellow-500"> star </span>
+            </div>
+            <h3 class="text-gray-800 text-base">False Witness: A Novel</h3>
+            <p class="text-gray-400 text-sm mt-2 font-light">Karin Slugher</p>
+            <div
+              class="
+                rounded-full
+                border border-yellow-600
+                text-yellow-600
+                inline-block
+                px-4
+                py-1
+                mt-8
+              "
+            >
+              View
+            </div>
+          </div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -62,9 +91,6 @@ export default {
   },
   data: () => ({ albumName: "", error: "" }),
   methods: {
-    openAlbumDetail(album) {
-      this.$router.push(`/album/${album.id}`);
-    },
     async createAlbum() {
       const albumStore = useAlbumStore();
 

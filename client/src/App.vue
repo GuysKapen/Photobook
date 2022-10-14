@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <div id="nav">
-      <!-- <router-link to="/">Home</router-link> | -->
-      <!-- <router-link to="/about">About</router-link> -->
       <Nav />
     </div>
     <router-view />
@@ -12,6 +10,7 @@
 import Nav from "@/components/Nav.vue";
 import { mapActions } from "vuex";
 import { useAuthStore } from "@/stores/auth/auth";
+import "@/assets/main.css"
 export default {
   setup() {
     const store = useAuthStore();
@@ -33,6 +32,3 @@ export default {
   },
 };
 </script>
-
-<style >
-</style>
