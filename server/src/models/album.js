@@ -7,6 +7,9 @@ const AlbumSchema = new Schema({
     type: String,
     required: true
   },
+  cover: {
+    type: String
+  },
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -15,7 +18,7 @@ const AlbumSchema = new Schema({
   images: [{
     type: String,
   }],
-  commnets: [{
+  comments: [{
     type: Schema.Types.ObjectId,
     ref: 'Comment',
   }]
